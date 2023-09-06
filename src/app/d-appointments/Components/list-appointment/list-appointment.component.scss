@@ -1,0 +1,46 @@
+@use "../../../../assets/style/abstracts/variables.scss" as *;
+
+.example-spacer {
+    flex: 1 1 ;
+  }
+
+mat-table{
+  background-color: #ffffff;
+}
+
+mat-cell {
+  justify-content: center;
+}
+
+mat-header-cell {
+  justify-content: center;
+}
+
+table {
+  * {
+    text-align: center;
+  }
+}
+.tr-head {
+  background-color: $theadBgColor;
+  &:hover {
+    background-color: $theadBgColor !important;
+  }
+  * {
+    color: #333;
+    font-weight: bolder;
+    user-select: none;
+  }
+}
+
+.tr-body:hover {
+  background-color: $secondaryBgColor !important;
+}
+
+.mat-toolbar{
+  background-color: #ffffff;
+}
+
+.mat-mdc-form-field-type-mat-input{
+  width: 100%
+}

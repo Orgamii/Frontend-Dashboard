@@ -1,0 +1,15 @@
+table {
+  th:first-child {
+    white-space: nowrap;
+  }
+}
+
+form {
+  fieldset {
+    border: 1px solid #ccc;
+    legend {
+      float: none;
+      width: auto;
+    }
+  }
+}

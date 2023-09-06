@@ -1,0 +1,89 @@
+<mat-form-field>
+  <mat-label>Filter</mat-label>
+  <input class="filter" matInput (keyup)="applyFilter($event)" placeholder="Ex. Abdelrahman" #input>
+</mat-form-field>
+<p>
+  <mat-toolbar>
+    <h2 class="fs-2 mb-0">Appointments</h2>
+    <span class="example-spacer"></span>
+    <button mat-raised-button  class="addButton bg-primary text-light px-2 gap-2" (click)="openAddAppointmentForm()">
+      <span class="material-icons">add</span>
+      Add Appointment
+    </button>
+  </mat-toolbar>
+</p>
+
+<div class="mat-elevation-z8 table-responsive shadow-none">
+  <table mat-table [dataSource]="appointmentService.appointments" matSort class="table mb-0">
+
+    <!-- Doctor Column -->
+    <mat-row matColumnDef="Doctor">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Doctor </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.doctorName}} </mat-cell>
+    </mat-row>
+
+    <!-- Clinic Column -->
+    <mat-row matColumnDef="Clinic">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Clinic </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.city}} </mat-cell>
+    </mat-row>
+
+    <!-- Date Column -->
+    <mat-row matColumnDef="Date">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Date </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.date}} </mat-cell>
+    </mat-row>
+
+    <!-- Starts Column -->
+    <mat-row matColumnDef="Starts">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Starts </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.timeFrom}} </mat-cell>
+    </mat-row>
+
+    <!-- Ends Column -->
+    <mat-row matColumnDef="Ends">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Ends </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.timeTo}} </mat-cell>
+    </mat-row>
+
+    <!-- Status Column -->
+    <mat-row matColumnDef="Status">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
+      <ng-container *matCellDef="let row">
+        <mat-cell *ngIf="row.booked"> Booked </mat-cell>
+        <mat-cell *ngIf="!row.booked"> No Booked </mat-cell>
+      </ng-container>
+    </mat-row>
+
+    <!-- Patient Column -->
+    <mat-row matColumnDef="Patient">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Patient </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.patientName}} </mat-cell>
+    </mat-row>
+
+    <!-- Edit Column -->
+    <mat-row matColumnDef="Edit">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Edit </mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <button mat-icon-button (click)="update(row._id)"><mat-icon class="text-warning">edit</mat-icon></button>
+      </mat-cell>
+    </mat-row>
+
+    <!-- Delete Column -->
+    <mat-row matColumnDef="Delete">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Delete </mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <button mat-icon-button (click)="remove(row._id)"><mat-icon class="text-danger">delete</mat-icon></button>
+      </mat-cell>
+    </mat-row>
+
+    <mat-row mat-header-row *matHeaderRowDef="displayedColumns" class="tr-head"></mat-row>
+    <mat-row mat-row *matRowDef="let row; columns: displayedColumns;" class="tr-body"></mat-row>
+
+    <!-- Row shown when there is no matching data. -->
+    <mat-row class="mat-row" *matNoDataRow>
+    <mat-cell class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</mat-cell>
+    </mat-row>
+  </table>
+</div>
+<mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>

@@ -1,0 +1,20 @@
+<div mat-dialog-title class="text-center">Doctors in this clinic</div>
+<div mat-dialog-content>
+  <div class="table-responsive">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Doctor Name</th>
+          <th>Specailty</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let doctor of data.doctors">
+          <td>{{doctor.firstName}} {{doctor.lastName}}</td>
+          <td>{{doctor.specialty.specialty}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <h1>Manager {{data.manager}}</h1>
+  </div>
+</div>

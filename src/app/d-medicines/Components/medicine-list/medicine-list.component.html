@@ -1,0 +1,68 @@
+<mat-form-field>
+  <mat-label>Filter</mat-label>
+  <input class="filter" matInput (keyup)="applyFilter($event)" placeholder="Ex. congestal" #input>
+</mat-form-field>
+<p>
+  <mat-toolbar>
+    <h2 class="fs-2 mb-0" >Medicines</h2>
+    <span class="example-spacer"></span>
+    <button mat-raised-button class="addButton bg-primary text-light px-2 gap-2" (click)="openAddMedicineForm()">
+      <span class="material-icons">add</span>
+      Add Medicine 
+    </button>
+    <!-- <button mat-raised-button class="addButton" (click)="openAddAppointmentForm()">Add Medicines</button> -->
+  </mat-toolbar>
+</p>
+
+
+<div class="mat-elevation-z8 table-responsive">
+  
+  <table mat-table [dataSource]="_medicineService.dataSource" matSort>
+
+    <!-- id Column
+    <mat-row matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> id </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row._id}} </mat-cell>
+    </mat-row> -->
+
+    <!-- name Column -->
+    <mat-row matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> name </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.name}} </mat-cell>
+    </mat-row>
+
+    <!-- description Column -->
+    <mat-row matColumnDef="description">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> description </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.description}} </mat-cell>
+    </mat-row>
+
+    <!-- Edit Column -->
+    <mat-row matColumnDef="edit">
+      <mat-header-cell *matHeaderCellDef mat-sort-header > Edit </mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <button mat-icon-button (click)="openUpdateMedicineForm(row._id)"><mat-icon  color="primary">edit</mat-icon></button>
+      </mat-cell>
+    </mat-row>
+
+    <!-- Delete Column -->
+    <mat-row matColumnDef="delete">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Delete </mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <button mat-icon-button color="warn" (click)="remove(row._id)"><mat-icon>delete</mat-icon></button>
+      </mat-cell>
+    </mat-row>
+
+
+    <mat-row class="tr-head" mat-header-row *matHeaderRowDef="displayedColumns"></mat-row>
+    <mat-row class="tr-body" mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+    <!-- Row shown when there is no matching data. --> 
+    <mat-row class="mat-row" *matNoDataRow>
+      <mat-cell class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</mat-cell>
+    </mat-row>
+
+  </table > 
+
+  <mat-paginator [pageSizeOptions]="[10, 5, 25, 100]" aria-label="Select page of medicines"></mat-paginator>
+</div>

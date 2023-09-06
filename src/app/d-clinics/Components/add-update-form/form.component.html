@@ -1,0 +1,82 @@
+<div mat-dialog-title class="text-center">Clinic Form</div>
+<div mat-dialog-content>
+  <form [formGroup]="this.clinicForm">
+    <fieldset class="p-2">
+    <legend>Required<span class="text-danger">*</span></legend>
+    <div class="row mt-1 row">
+        <mat-form-field appearance="outline" class="col-12 col-md-6" formGroupName="location">
+          <mat-label>City</mat-label>
+          <input matInput formControlName="city" placeholder="City">
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="col-12 col-md-6" formGroupName="location" >
+          <mat-label>Street</mat-label>
+          <input matInput formControlName="street" placeholder="Street">
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="col-12 col-md-6" formGroupName="location" >
+          <mat-label>Building</mat-label>
+          <input matInput type="text" inputmode="numeric" pattern="[0-9]*" formControlName="building" placeholder="Building">
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="col-12 col-md-6">
+          <mat-label>Mobile Phone</mat-label>
+          <input matInput type="text" inputmode="numeric" pattern="^01[0125][0-9]{8}$" formControlName="mobilePhone" placeholder="Mobile Phone">
+        </mat-form-field>
+    </div>
+    </fieldset>
+    <fieldset class="p-2 mt-4">
+      <legend>Optional</legend>
+      <div class="row mt-1">
+          <mat-form-field appearance="outline" class="col-12 col-md-6">
+            <mat-label>Specialties</mat-label>
+            <mat-select #targetSpecailty (valueChange)="getDoctorsBasedOnSpecailtyId(targetSpecailty.value)">
+                <mat-option *ngFor="let spec of specailies" [value]="spec._id">
+                    {{spec.specialty | titlecase}}
+                </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="col-12 col-md-6">
+            <mat-label>Doctors</mat-label>
+            <mat-select #doctor (valueChange)="selectedDoctor(doctor.value)">
+              <mat-option *ngIf="isEmpty">No doctors for this specailty</mat-option>
+              <mat-option  *ngFor="let doctor of doctors | async" [value]="doctor">
+                {{doctor.firstName + " " + doctor.lastName | titlecase}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+      </div>
+      <div class="table-responsive" *ngIf="choicedDoctorAsync">
+        <table class="table">
+          <thead>
+            <tr class="bg-primary text-light">
+              <th scope="col">Doctor Name</th>
+              <th scope="col" class="text-center">Specialty</th>
+              <th scope="col" class="text-center">Remove</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of choicedDoctorAsync | async">
+              <td>{{item.firstName}} {{item.lastName}}</td>
+              <td class="text-center">{{item.specialty.specialty | titlecase}}</td>
+              <td class="text-center" (click)="remove(item)"><span class="material-icons text-danger" role="button">delete</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="row mt-1">
+          <mat-form-field appearance="outline" class="col-12">
+            <mat-label>Manager</mat-label>
+            <mat-select formControlName="manager">
+              <mat-option *ngIf="isEmpty">No doctors for this specailty</mat-option>
+                <mat-option *ngFor="let item of choicedDoctorAsync | async" [value]="item.id">
+                  {{item.firstName | titlecase}} {{item.lastName | titlecase}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+      </div>
+    </fieldset>
+  </form>
+</div>
+<div mat-dialog-actions class="d-flex justify-content-end gap-2">
+  <button mat-raised-button (click)="cancel()">Cancel</button>
+  <button mat-raised-button color="primary" (click)="add()" [disabled]="clinicForm.invalid" *ngIf="!data">Add</button>
+  <button mat-raised-button color="primary" (click)="update()" [disabled]="clinicForm.invalid" *ngIf="data">Update</button>
+</div>

@@ -1,0 +1,61 @@
+<div mat-dialog-title>Appointment Form</div>
+<div mat-dialog-content>
+    <form [formGroup]="this.appointmentService.appoinForm">
+        <div class="row mt-1">
+            <mat-form-field appearance="outline" class="col-5 offset-1">
+                <mat-label>Doctor Name</mat-label>
+                <mat-select formControlName="doctor">
+                    <mat-option *ngFor="let doctor of doctorNames" [value]="doctor._id">
+                        {{doctor.firstName + " " + doctor.lastName}}
+                    </mat-option>
+                </mat-select>
+                <div *ngIf="doctor?.invalid && doctor?.touched">
+                    <span *ngIf="doctor?.errors?.['required']">doctor is required</span>
+                </div>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="col-5">
+                <mat-label>Clinic City</mat-label>
+                <mat-select formControlName="clinic">
+                    <mat-option *ngFor="let city of clinicsLocations" [value]="city._id">
+                        {{city.location.city}}
+                    </mat-option>
+                </mat-select>
+                <div *ngIf="clinic?.invalid && clinic?.touched">
+                    <span *ngIf="clinic?.errors?.['required']">clinic is required</span>
+                </div>
+            </mat-form-field>
+        </div>
+        <div class="row mt-1">
+            <mat-form-field appearance="outline" class="col-10 offset-1">
+                <mat-label>Choose a date</mat-label>
+                <input formControlName="date" matInput [matDatepicker]="picker">
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+                <div *ngIf="date?.invalid && date?.touched">
+                    <span *ngIf="date?.errors?.['required']">Date is required</span>
+                </div>
+            </mat-form-field>
+        </div>
+        <div class="row mt-1">
+            <mat-form-field appearance="outline" class="col-5 offset-1">
+                <mat-label>Starts At</mat-label>
+                <mat-select formControlName="timeFrom">
+                    <mat-option *ngFor="let item of times" [value]="item">{{item}}</mat-option>
+                </mat-select>
+                <div *ngIf="timeFrom?.invalid && timeFrom?.touched">
+                    <span *ngIf="timeFrom?.errors?.['required']">timeFrom is required</span>
+                </div>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="col-5">
+                <mat-label>Ends At</mat-label>
+                <mat-select formControlName="timeTo">
+                    <mat-option *ngFor="let item of times" [value]="item">{{item}}</mat-option>
+                </mat-select>
+                <div *ngIf="timeTo?.invalid && timeTo?.touched">
+                    <span *ngIf="timeTo?.errors?.['required']">timeTo is required</span>
+                </div>
+            </mat-form-field>
+        </div>
+    </form>
+</div>

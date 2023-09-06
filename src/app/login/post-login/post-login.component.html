@@ -1,0 +1,40 @@
+<form class="vh-100">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                <div class="card shadow-2-strong" [formGroup]="adminForm">
+                    <div class="card-body p-5 text-center">
+
+                        <h3 class="mb-5">Admin Sign in</h3>
+
+                        <div class="form-outline mb-4">
+                            <input formControlName="email" type="email" id="typeEmailX-2"
+                                class="form-control form-control-lg" placeholder="Email" />
+                        </div>
+                        <div *ngIf="email?.invalid && email?.touched"
+                            style="color: red; font-size: 15px; margin-top: -20px;" class="mb-1">
+                            <span *ngIf="email?.errors?.['pattern']">Please enter a valid e-mail</span>
+                            <span *ngIf="email?.errors?.['required']">E-mail is required</span>
+                        </div>
+
+                        <div class="form-outline mb-4">
+                            <input formControlName="password" type="password" id="typePasswordX-2"
+                                class="form-control form-control-lg" placeholder="Password" />
+                        </div>
+                        <div *ngIf="password?.invalid && password?.touched"
+                            style="color: red; font-size: 15px; margin-top: -20px;" class="mb-1">
+                            <span *ngIf="password?.errors?.['required']">Password is required</span>
+                        </div>
+
+                        <!-- Checkbox -->
+                        <div class="form-check d-flex justify-content-start mb-4 mt-2">
+                            <input class="form-check-input me-2" type="checkbox" value="" id="form1Example3" />
+                            <label class="form-check-label" for="form1Example3"> Remember password </label>
+                        </div>
+                        <input type="submit" value="Login" (click)="login()" class="btn btn-primary btn-lg btn-block" [disabled]="adminForm.invalid">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

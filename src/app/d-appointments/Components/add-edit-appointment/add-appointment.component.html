@@ -1,0 +1,5 @@
+<app-form></app-form>
+<div mat-dialog-actions class="d-flex justify-content-end gap-2">
+    <button mat-raised-button (click)="close()">Cancel</button>
+    <button mat-raised-button color="primary" (click)="submit('100ms','100ms')" [disabled]="appointmentService.appoinForm.invalid">Add</button>
+</div>

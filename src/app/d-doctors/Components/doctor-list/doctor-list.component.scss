@@ -1,0 +1,31 @@
+@use "../../../../assets/style/abstracts/variables.scss" as *;
+
+table {
+  * {
+    text-align: center;
+  }
+  .tr-head {
+    background-color: $theadBgColor;
+    th {
+      color: #333;
+      font-weight: bolder;
+      user-select: none;
+      white-space: nowrap;
+    }
+  }
+
+  .tr-body {
+    &:hover {
+      background-color: $secondaryBgColor;
+    }
+    td {
+      img {
+        width: 40px;
+      }
+    }
+  }
+}
+
+.example-spacer {
+  flex: 1 1 ;
+}

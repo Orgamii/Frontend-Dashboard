@@ -1,0 +1,5 @@
+@use "../assets/style/abstracts/variables.scss" as *;
+
+.body {
+  background-color: $secondaryBgColor;
+}
